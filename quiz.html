@@ -1,0 +1,2867 @@
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
+
+    </script>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>গাউসিয়া কমিটি বাংলাদেশ | ইসলামিক কুইজ</title>
+
+    <style>
+
+        :root {
+
+            --primary: #18661F;
+
+            --secondary: #1e3c72;
+
+            --success: #2ecc71;
+
+            --danger: #e74c3c;
+
+            --glass: rgba(255, 255, 255, 0.95);
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: 'Segoe UI', 'SolaimanLipi', sans-serif;
+
+            user-select: none;
+
+            -webkit-user-select: none;
+
+            -moz-user-select: none;
+
+            -ms-user-select: none;
+
+        }
+
+
+
+        body {
+
+            background: linear-gradient(-45deg, #18661F, #1e3c72, #2a5298, #0f2027);
+
+            background-size: 400% 400%;
+
+            animation: gradientBG 15s ease infinite;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            color: #333;
+
+        }
+
+
+
+        @keyframes gradientBG {
+
+            0% { background-position: 0% 50%; }
+
+            50% { background-position: 100% 50%; }
+
+            100% { background-position: 0% 50%; }
+
+        }
+
+
+
+        .quiz-container {
+
+            width: 100%;
+
+            max-width: 480px;
+
+            background: var(--glass);
+
+            border-radius: 30px;
+
+            padding: 35px 25px;
+
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+
+            text-align: center;
+
+            backdrop-filter: blur(10px);
+
+            position: relative;
+
+            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        }
+
+
+
+        .logo {
+
+            width: 95px;
+
+            height: 95px;
+
+            border-radius: 50%;
+
+            border: 4px solid var(--primary);
+
+            background: white;
+
+            margin-bottom: 15px;
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+        }
+
+
+
+        .menu-container {
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 25px;
+
+            z-index: 10;
+
+        }
+
+        .three-dot-btn {
+
+            background: none;
+
+            border: none;
+
+            font-size: 24px;
+
+            cursor: pointer;
+
+            color: #666;
+
+            padding: 5px 10px;
+
+            transition: 0.2s;
+
+        }
+
+        .three-dot-btn:hover { color: #000; }
+
+
+
+        .menu-dropdown {
+
+            display: none;
+
+            position: absolute;
+
+            top: 35px;
+
+            right: 0;
+
+            background: white;
+
+            border-radius: 15px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+            width: 200px;
+
+            padding: 10px;
+
+            border: 1px solid #eee;
+
+            text-align: left;
+
+            animation: fadeIn 0.2s ease-out;
+
+        }
+
+        .menu-dropdown.show { display: block; }
+
+
+
+        .menu-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 8px 5px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            color: #444;
+
+            border-bottom: 1px solid #f5f5f5;
+
+        }
+
+        .menu-item:last-child { border-bottom: none; }
+
+
+
+        .theme-toggle-btn,
+
+        .audio-toggle-btn {
+
+            background: #eee;
+
+            border: none;
+
+            padding: 4px 10px;
+
+            border-radius: 20px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+        }
+
+        .menu-ll-btn {
+
+            background: #fff8e1;
+
+            color: #f39c12;
+
+            border: 1px dashed #f39c12;
+
+            padding: 4px 10px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            transition: 0.2s;
+
+        }
+
+        .menu-ll-btn:disabled {
+
+            opacity: 0.4;
+
+            cursor: not-allowed;
+
+            background: #eee;
+
+            color: #aaa;
+
+            border-color: #ccc;
+
+        }
+
+
+
+        .input-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+
+        }
+
+        .name-input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 14px;
+
+            text-align: center;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+
+        }
+
+        .name-input:focus {
+
+            border-color: var(--primary);
+
+            outline: none;
+
+            box-shadow: 0 0 10px rgba(24, 102, 31, 0.2);
+
+        }
+
+
+
+        .btn-main {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+            transition: 0.2s;
+
+        }
+
+        .btn-main:active { transform: scale(0.98); }
+
+
+
+        .stats-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 15px;
+
+            align-items: center;
+
+        }
+
+        .badge {
+
+            padding: 8px 15px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+            font-size: 13px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+        }
+
+        .step-badge {
+
+            background: #e8f5e9;
+
+            color: var(--primary);
+
+        }
+
+        .timer-badge {
+
+            background: #fff0f0;
+
+            color: var(--danger);
+
+            transition: 0.3s;
+
+        }
+
+        .pulse {
+
+            animation: pulseAnim 0.5s infinite alternate;
+
+        }
+
+        .time-penalty {
+
+            animation: flashRed 0.5s 2;
+
+        }
+
+
+
+        @keyframes pulseAnim {
+
+            from { transform: scale(1); }
+
+            to { transform: scale(1.08); }
+
+        }
+
+        @keyframes flashRed {
+
+            0%,
+
+            100% {
+
+                background: #fff0f0;
+
+                color: var(--danger);
+
+            }
+
+            50% {
+
+                background: var(--danger);
+
+                color: white;
+
+            }
+
+        }
+
+
+
+        .buffs-panel {
+
+            display: flex;
+
+            gap: 8px;
+
+            justify-content: center;
+
+            margin-bottom: 15px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .buff-badge {
+
+            display: none;
+
+            padding: 5px 12px;
+
+            border-radius: 15px;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            animation: popIn 0.3s ease-out;
+
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .buff-5050 {
+
+            background: #e1f5fe;
+
+            color: #0288d1;
+
+            border: 1px solid #0288d1;
+
+        }
+
+        .buff-guard {
+
+            background: #e8f5e9;
+
+            color: #2e7d32;
+
+            border: 1px solid #2e7d32;
+
+            animation: pulseAnim 0.8s infinite alternate;
+
+        }
+
+
+
+        @keyframes popIn {
+
+            from { transform: scale(0);
+
+                opacity: 0; }
+
+            to { transform: scale(1);
+
+                opacity: 1; }
+
+        }
+
+
+
+        .progress-bar {
+
+            height: 8px;
+
+            background: #eee;
+
+            border-radius: 10px;
+
+            margin-bottom: 25px;
+
+            overflow: hidden;
+
+        }
+
+        #progressFill {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: linear-gradient(90deg, var(--success), #27ae60);
+
+            transition: 0.4s;
+
+        }
+
+
+
+        .question-text {
+
+            font-size: 19px;
+
+            color: #2c3e50;
+
+            margin-bottom: 20px;
+
+            text-align: left;
+
+            font-weight: bold;
+
+            line-height: 1.4;
+
+        }
+
+
+
+        .options-grid {
+
+            display: grid;
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .option-btn {
+
+            padding: 15px;
+
+            background: white;
+
+            border: 2px solid #ececec;
+
+            border-radius: 14px;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            font-size: 15px;
+
+            font-weight: 500;
+
+            transition: 0.2s;
+
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.02);
+
+            position: relative;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+        .option-btn:hover:not(.disabled) {
+
+            border-color: var(--secondary);
+
+            background: #f8fafd;
+
+        }
+
+
+
+        .poll-percentage {
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            color: #7f8c8d;
+
+            display: none;
+
+        }
+
+        .correct .poll-percentage,
+
+        .wrong .poll-percentage { color: white; }
+
+
+
+        .correct {
+
+            background: var(--success) !important;
+
+            color: white !important;
+
+            border-color: var(--success) !important;
+
+        }
+
+        .wrong {
+
+            background: var(--danger) !important;
+
+            color: white !important;
+
+            border-color: var(--danger) !important;
+
+            animation: shake 0.4s;
+
+        }
+
+        .disabled { pointer-events: none; }
+
+        .hidden-option {
+
+            opacity: 0.2;
+
+            pointer-events: none;
+
+            text-decoration: line-through;
+
+        }
+
+
+
+        @keyframes shake {
+
+            0%,
+
+            100% { transform: translateX(0); }
+
+            25% { transform: translateX(-6px); }
+
+            75% { transform: translateX(6px); }
+
+        }
+
+        .fade-in {
+
+            animation: fadeIn 0.4s ease-in;
+
+        }
+
+        @keyframes fadeIn {
+
+            from { opacity: 0;
+
+                transform: translateY(10px); }
+
+            to { opacity: 1;
+
+                transform: translateY(0); }
+
+        }
+
+
+
+        /* Dark Mode */
+
+        body.dark-mode {
+
+            background: linear-gradient(-45deg, #0a2e0f, #101d33, #15294a, #050a0c);
+
+        }
+
+        .dark-mode .quiz-container {
+
+            background: rgba(30, 30, 30, 0.96);
+
+            color: #e0e0e0;
+
+            border-color: #333;
+
+        }
+
+        .dark-mode .question-text { color: #ffffff; }
+
+        .dark-mode .option-btn {
+
+            background: #2d2d2d;
+
+            border-color: #444;
+
+            color: #eee;
+
+        }
+
+        .dark-mode .name-input {
+
+            background: #333;
+
+            color: #fff;
+
+            border-color: #555;
+
+        }
+
+        .dark-mode .menu-dropdown {
+
+            background: #252525;
+
+            border-color: #444;
+
+            color: #fff;
+
+        }
+
+        .dark-mode .menu-item {
+
+            color: #ddd;
+
+            border-color: #444;
+
+        }
+
+        .dark-mode .three-dot-btn { color: #aaa; }
+
+
+
+        #splashScreen {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: white;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 1000;
+
+            transition: 0.6s ease-out;
+
+        }
+
+        .dark-mode #splashScreen {
+
+            background: #121212;
+
+            color: white;
+
+        }
+
+        .bismillah-text {
+
+            font-size: 28px;
+
+            color: var(--primary);
+
+            margin-bottom: 20px;
+
+            animation: zoomIn 1.2s ease-out;
+
+        }
+
+        .loader-bar {
+
+            width: 200px;
+
+            height: 5px;
+
+            background: #eee;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+        }
+
+        .loader-fill {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: var(--primary);
+
+            animation: loading 1.5s forwards;
+
+        }
+
+        @keyframes zoomIn {
+
+            from { transform: scale(0.6);
+
+                opacity: 0; }
+
+            to { transform: scale(1);
+
+                opacity: 1; }
+
+        }
+
+        @keyframes loading {
+
+            to { width: 100%; }
+
+        }
+
+
+
+        /* Mystery Box Styles */
+
+        .mystery-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.8);
+
+            z-index: 99999;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            backdrop-filter: blur(5px);
+
+        }
+
+        .mystery-box-card {
+
+            background: linear-gradient(135deg, #ffe259, #ffa751);
+
+            padding: 40px 30px;
+
+            border-radius: 24px;
+
+            text-align: center;
+
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+
+            width: 90%;
+
+            max-width: 400px;
+
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            color: #333;
+
+        }
+
+        .mystery-gift-icon {
+
+            font-size: 80px;
+
+            cursor: pointer;
+
+            animation: bounce 1s infinite alternate;
+
+            transition: 0.3s;
+
+        }
+
+        .mystery-gift-icon:hover { transform: scale(1.1); }
+
+        @keyframes bounce {
+
+            from { transform: translateY(0); }
+
+            to { transform: translateY(-15px); }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <div id="splashScreen">
+
+        <h2 class="bismillah-text">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h2>
+
+        <div class="loader-bar">
+
+            <div class="loader-fill"></div>
+
+        </div>
+
+        <p style="margin-top: 15px; color: #666; font-size: 14px;">সিস্টেম সচল হচ্ছে...</p>
+
+    </div>
+
+
+
+    <div class="quiz-container">
+
+        <div class="menu-container">
+
+            <button class="three-dot-btn" onclick="toggleMenu(event)">⋮</button>
+
+            <div class="menu-dropdown" id="menuDropdown">
+
+                <div class="menu-item">
+
+                    <span>সাউন্ড:</span>
+
+                    <button class="audio-toggle-btn" onclick="toggleAudio(event)" id="audioBtn">🔊</button>
+
+                </div>
+
+                <div class="menu-item">
+
+                    <span>থিম:</span>
+
+                    <button class="theme-toggle-btn" onclick="toggleTheme(event)" id="themeBtn">🌙</button>
+
+                </div>
+
+                <div id="menuLifelinesSection" style="display: none; flex-direction: column;">
+
+                    <div style="font-size: 11px; color:#888; font-weight:bold; margin: 8px 0 4px 0; text-align:center;">স্পেশাল লাইফলাইনসমূহ</div>
+
+                    <div class="menu-item">
+
+                        <span>১. ৫০:৫০</span>
+
+                        <button id="ll5050" class="menu-ll-btn" onclick="use5050(event)">💡 Use</button>
+
+                    </div>
+
+                    <div class="menu-item">
+
+                        <span>২. সময় +৩০সে.</span>
+
+                        <button id="llTime" class="menu-ll-btn" onclick="useTimeBonus(event)">⏱️ Use</button>
+
+                    </div>
+
+                    <div class="menu-item">
+
+                        <span>৩. সঠিক উত্তর</span>
+
+                        <button id="llAns" class="menu-ll-btn" onclick="useShowAns(event)">🎯 Use</button>
+
+                    </div>
+
+                    <div class="menu-item">
+
+                        <span>৪. অডিয়েন্স পোল</span>
+
+                        <button id="llPoll" class="menu-ll-btn" onclick="useAudiencePoll(event)">👥 Use</button>
+
+                    </div>
+
+                    <div class="menu-item">
+
+                        <span>৫. লাইফোর্ড</span>
+
+                        <button id="llGuard" class="menu-ll-btn" onclick="useLifeGuard(event)">🛡️ Use</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Start Screen -->
+
+        <div id="startScreen" class="fade-in">
+
+            <img src="https://i.imgur.com/mXYuZAS.jpeg" class="logo">
+
+            <h4>ইসলামিক মেধা অন্বেষণ প্রতিযোগিতা</h4>
+
+            <h2 style="color: var(--primary); margin: 5px 0 10px 0;">গাউসিয়া কমিটি বাংলাদেশ</h2>
+
+            <p style="font-weight: 600; color: #666; margin-bottom: 20px; font-size:13px;">ঘাষি মাঝির পাড়া ইউনিট</p>
+
+
+
+            <div style="text-align: left; margin-bottom: 25px; background: #f0f7f1; padding: 14px; border-radius: 14px; border-left: 5px solid var(--primary);">
+
+                <p style="font-size: 13px; color: #18661F; font-weight: bold; margin-bottom: 4px;">📜 প্রতিযোগিতার জরুরি নিয়মসমূহ:</p>
+
+                <p style="font-size: 12px; color: #555;">• একটি mobile নাম্বার দিয়ে <b>শুধুমাত্র একবারই</b> অংশ নেওয়া যাবে।</p>
+
+                <p style="font-size: 12px; color: #555;">• মোট ৫০টি প্রশ্নের জন্য লাইভ কাউন্টডাউন ৬০ সেকেন্ড।</p>
+
+                <p style="font-size: 12px; color: #2ecc71; font-weight: bold;">🎯 রিওয়ার্ড: সঠিক উত্তর দিলে সরাসরি ৫ সেকেন্ড সময় বেড়ে যাবে!</p>
+
+                <p style="font-size: 12px; color: #e74c3c; font-weight: bold;">⚠️ নেগেটিভ মার্কিং: ভুল উত্তর দিলে সরাসরি ৫ সেকেন্ড কাটা যাবে!</p>
+
+                <p style="font-size: 12px; color: #d35400; font-weight: bold;">🚨 সিকিউরিটি লক: স্ক্রিন মিনিমাইজ/ট্যাব চেঞ্জ বা কপি-পেস্ট করা সম্পূর্ণ নিষিদ্ধ!</p>
+
+                <p style="font-size: 12px; color: #18661F; font-weight: bold;">🎲 র্যান্ডম কোশ্চেন: প্রতিবার সম্পূর্ণ ভিন্ন প্রশ্ন সেট স্বয়ংক্রিয় সিলেক্ট হবে।</p>
+
+            </div>
+
+
+
+            <div class="input-group">
+
+                <input type="text" id="playerName" class="name-input" placeholder="আপনার সম্পূর্ণ নাম লিখুন">
+
+                <input type="tel" id="playerMobile" class="name-input" placeholder="১১ ডিজিটের মোবাইল নাম্বার (01xxxxxxxxx)">
+
+            </div>
+
+
+
+            <button class="btn-main" onclick="verifyAndStart()">নিবন্ধিত হয়ে কুইজ শুরু করুন ➜</button>
+
+            <p style="margin-top:25px; font-size:12px; color:#888;">অ্যাপ্লিকেশন ডেভেলপারঃ <b style="color:#228B22;">আসিফ হোসেন নুর</b></p>
+
+        </div>
+
+
+
+        <!-- Quiz Content Screen -->
+
+        <div id="quizContent" style="display:none;">
+
+            <div class="stats-row">
+
+                <div class="badge step-badge" id="stepDisplay">ধাপ: ১</div>
+
+                <div class="badge timer-badge" id="timerBadge">⏱ <span id="time">60</span>সে.</div>
+
+            </div>
+
+            <div class="buffs-panel">
+
+                <div id="signal5050" class="buff-badge buff-5050">💡 ৫০:৫০ অ্যাক্টিভ</div>
+
+                <div id="signalGuard" class="buff-badge buff-gray buff-guard">🛡️ লাইফ গার্ড অন</div>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div id="progressFill"></div>
+
+            </div>
+
+            <h3 id="question" class="question-text"></h3>
+
+            <div id="options" class="options-grid"></div>
+
+            <button id="nextBtn" class="btn-main" style="display:none; margin-top: 20px;" onclick="handleNext()">পরবর্তী প্রশ্ন ➜</button>
+
+        </div>
+
+
+
+        <!-- Result Screen -->
+
+        <div id="resultScreen" style="display:none;" class="fade-in">
+
+            <h2 style="color:var(--primary); font-size: 26px;">আলহামদুলিল্লাহ!</h2>
+
+            <div style="font-size:60px; margin:10px 0;">🏆</div>
+
+            <p style="font-size: 15px;">অংশগ্রহণের জন্য ধন্যবাদ, <b id="displayPlayerName" style="color: var(--secondary);"></b>!</p>
+
+            <div style="background: #f0f7f1; padding: 20px; border-radius: 20px; margin: 20px 0;">
+
+                <p style="font-size: 14px; color: #666;">আপনার ফাইনাল স্কোর</p>
+
+                <h1 style="color: var(--success); font-size: 42px; margin-top: 5px;"><span id="finalScore"></span> / ৫০</h1>
+
+            </div>
+
+            <p id="saveMsg" style="font-weight: bold; margin-bottom: 20px; color: #f39c12; font-size: 13px;"></p>
+
+            <button class="btn-main" style="background: #25D366; margin-bottom: 12px;" onclick="shareResult()">বন্ধুদের চ্যালেঞ্জ করুন 📲</button>
+
+            <button class="btn-main" style="background: #34495e; margin-bottom: 12px; display: none;" id="leaderboardBtn">📊 লাইভ লিডারবোর্ড দেখুন</button>
+
+            <button class="btn-main" style="background: #7f8c8d;" onclick="location.reload()">হোম স্ক্রিন 🔄</button>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        // ===== GOOGLE SHEETS CONFIGURATION =====
+
+        // এই URL টি আপনার Google Apps Script Web App URL দিয়ে Replace করুন
+
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwaDimYG1s6V1yo-p37ASaje07EbPHggsMTLRKbXwe4vqQ54AAL7Meg6-hC1XkVaYAAYw/exec";
+
+        // ========================================
+
+
+
+        // 🔐 চিটিং প্রোটেকশন সিস্টেম
+
+        document.addEventListener("visibilitychange", function() {
+
+            if (document.hidden && quizActive) {
+
+                clearInterval(timer);
+
+                alert("🚨 সিকিউরিটি অ্যালার্ট: কুইজ চলাকালীন ট্যাব পরিবর্তন বা মিনিমাইজ করার কারণে আপনার কুইজ বাতিল ও সাবমিট করা হলো!");
+
+                showFinalResult();
+
+            }
+
+        });
+
+
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+
+        document.addEventListener('keydown', function(e) {
+
+            if (e.key === "F12" ||
+
+                (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J" || e.key === "C")) ||
+
+                (e.ctrlKey && e.key === "U") ||
+
+                (e.ctrlKey && e.key === "c") || (e.ctrlKey && e.key === "C")) {
+
+                e.preventDefault();
+
+                alert("🚫 চিটিং প্রোটেকশন: ডেভেলপার টুলস বা কপি করা সম্পূর্ণ নিষিদ্ধ!");
+
+            }
+
+        });
+
+
+
+        function toggleMenu(event) {
+
+            event.stopPropagation();
+
+            document.getElementById("menuDropdown").classList.toggle("show");
+
+        }
+
+        window.onclick = function() {
+
+            document.getElementById("menuDropdown").classList.remove("show");
+
+        }
+
+
+
+        // 🔊 Audio Engine
+
+        let audioCtx = null,
+
+            isMuted = false;
+
+
+
+        function initAudio() {
+
+            if (!audioCtx) {
+
+                audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+
+            }
+
+        }
+
+
+
+        function toggleAudio(event) {
+
+            event.stopPropagation();
+
+            isMuted = !isMuted;
+
+            document.getElementById("audioBtn").innerText = isMuted ? "🔇" : "🔊";
+
+        }
+
+
+
+        function playSound(type) {
+
+            if (!audioCtx || isMuted) return;
+
+            const osc = audioCtx.createOscillator(),
+
+                gain = audioCtx.createGain();
+
+            osc.connect(gain);
+
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+
+                osc.start();
+
+                osc.stop(audioCtx.currentTime + 0.25);
+
+            } else if (type === 'wrong') {
+
+                osc.frequency.setValueAtTime(196.00, audioCtx.currentTime);
+
+                osc.frequency.setValueAtTime(146.83, audioCtx.currentTime + 0.1);
+
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+
+                osc.start();
+
+                osc.stop(audioCtx.currentTime + 0.3);
+
+            }
+
+        }
+
+
+
+        // 📊 ডাইনামিক কোয়েশ্চেন ব্যাংক (প্রতি ধাপে ৩০টি করে মোট ১৫০টি প্রশ্ন)
+
+        const rawQuestions = {
+
+            1: [
+
+                { q: "ঈমান অর্থ কী?", a: "বিশ্বাস", b: "অবিশ্বাস", c: "সন্দেহ", d: "ভয়", ans: "a" },
+
+                { q: "ইসলামের রুকন কয়টি?", a: "৩টি", b: "৪টি", c: "৫টি", d: "৬টি", ans: "c" },
+
+                { q: "ফজরের ফরজ নামাজ কয় রাকাত?", a: "২", b: "৩", c: "৪", d: "১", ans: "a" },
+
+                { q: "নবীজির বাবার নাম কী?", a: "আব্দুল্লাহ", b: "আবু তালিব", c: "হামজা", d: "আব্বাস", ans: "a" },
+
+                { q: "আহসানুল কাসাস বলা হয় কোন নবীর ঘটনাকে?", a: "হযরত মুহাম্মদ (দ.)", b: "হযরত মুসা(আ.)",
+
+                    c: "হযরত ঈসা(আ.)", d: "হযরত ইউসূফ(আ.)", ans: "d" },
+
+                { q: "আল্লাহর ঘরের নাম কী?", a: "কাবা শরীф", b: "মসজিদে নববী", c: "আকসা", d: "বায়তুল মামুর",
+
+                ans: "a" },
+
+                { q: "বিদায় তাওয়াф করা হজ্বের কী?", a: "ফরজ", b: "সুন্নত", c: "ওয়াজিব", d: "নফল", ans: "c" },
+
+                { q: "নামাজের চাবি কী?", a: "পবিত্রতা", b: "হজ", c: "যাকাত", d: "সালাম", ans: "a" },
+
+                { q: "জান্নাতের নিচে কী প্রবাহিত হয়?", a: "নদ-নদী", b: "আগুন", c: "দুধ", d: "মধু", ans: "a" },
+
+                { q: "ফেরেশতারা কী দিয়ে তৈরি?", a: "আলো", b: "মাটি", c: "আগুন", d: "पानी", ans: "a" },
+
+                { q: "সর্বপ্রথম কাকে সৃষ্টি করা হয়?", a: "হযরত আদম (আ.)", b: "হযরত নূহ (আ.)", c: "হযরত ঈসা (আ.)",
+
+                    d: "হযরত মুসা (আ.)", ans: "a" },
+
+                { q: "মানবজাতির আদি মাতা কে?", a: "হযরত হাওয়া (আ.)", b: "হযরত সারা", c: "হযরত হাজেরা",
+
+                    d: "হযরত আমেনা", ans: "a" },
+
+                { q: "আযানের প্রবর্তক কে?", a: "হযরত বিলাল (রা.)", b: "হযরত উমর (রা.)", c: "রাসূলুল্লাহ (দ.)",
+
+                    d: "হযরত আবু বকর (রা.)", ans: "c" },
+
+                { q: "ইসলামের প্রথম মুয়াযযিন কে?", a: "হযরত বিলাল (রা.)", b: "হযরত সালমান", c: "হযরত আম্মার",
+
+                    d: "হযরত যায়েদ", ans: "a" },
+
+                { q: "ওযুর ফরজ কয়টি?", a: "৩টি", b: "৪টি", c: "৫টি", d: "৬টি", ans: "b" },
+
+                { q: "গোসলের ফরজ কয়টি?", a: "৩টি", b: "৪টি", c: "৫টি", d: "৬টি", ans: "a" },
+
+                { q: "তয়াম্মুমের ফরজ কয়টি?", a: "২টি", b: "৩টি", c: "৪টি", d: "৫টি", ans: "b" },
+
+                { q: "ইসলামের প্রথম খলিফা কে?", a: "হযরত আবু বকর (রা.)", b: "হযরত উমর (রা.)", c: "হযরত উসমান (রা.)",
+
+                    d: "হযরত আলী (রা.)", ans: "a" },
+
+                { q: "সবচেয়ে মিষ্টি পানির কূপ কোনটি?", a: "যমযম", b: "কাওসার", c: "তাসনীম", d: "সালসাবিল",
+
+                ans: "a" },
+
+                { q: "কুরআনের প্রথম নাযিলকৃত শব্দ কোনটি?", a: "ইকরা", b: "আলহামদু", c: "আলিফ লাম মীম", d: "ক্বুল",
+
+                    ans: "a" },
+
+                { q: "হজ কোন মাসে অনুষ্ঠিত হয়?", a: "জিলহজ", b: "রমজান", c: "শাওয়াল", d: "মুহাররম", ans: "a" },
+
+                { q: "নামাজে সেজদা কয়টি করতে হয় প্রতি রাকাতে?", a: "১টি", b: "২টি", c: "৩টি", d: "৪টি", ans: "b" },
+
+                { q: "কোনটি কবিরা গুনাহ?", a: "মিথ্যা বলা", b: "অজু ভাঙা", c: "দেরিতে ঘুমানো", d: "বেশি হাসা",
+
+                ans: "a" },
+
+                { q: "ইসলাম শব্দের অর্থ কী?", a: "শান্তি ও আত্মসমর্পণ", b: "যুদ্ধ", c: "কঠোরতা", d: "মনোনয়ন",
+
+                ans: "a" },
+
+                { q: "হযরত মুহাম্মদ (দ.) এর মাতার নাম কী?", a: "আমেনা", b: "হালিমা", c: "খাদিজা", d: "ফাতিমা",
+
+                    ans: "a" },
+
+                { q: "পবিত্র আল-কুরআন কার বাণী?", a: "আল্লাহ তাআলার", b: "জিবরাইলের", c: "নবীজির", d: "সাহাবিদের",
+
+                    ans: "a" },
+
+                { q: "আখেরাত অর্থ কী?", a: "পরকাল", b: "ইহকাল", c: "অতীত", d: "বর্তমান", ans: "a" },
+
+                { q: "কুরআন মজিদে মোট কতটি সেজদা আছে?", a: "১৪টি", b: "১৫টি", c: "১০টি", d: "১২টি", ans: "a" },
+
+                { q: "রমজান মাসের রোজা রাখা কী?", a: "ফরজ", b: "সুন্নত", c: "ওয়াজিব", d: "নফল", ans: "a" },
+
+                { q: "মিথ্যা বলা কিসের লক্ষণ?", a: "মুনাফিকির", b: "ঈমানের", c: "ইসলামের", d: "সততার", ans: "a" }
+
+            ],
+
+            2: [
+
+                { q: "কুরআনে মোট কয়টি সূরা আছে?", a: "১১৪", b: "১১০", c: "১২০", d: "১১৬", ans: "a" },
+
+                { q: "সবচেয়ে বড় সূরা কোনটি?", a: "সূরা বাকারা", b: "সূরা ইখলাস", c: "সূরা ফাতিহা", d: "সূরা নাস",
+
+                    ans: "a" },
+
+                { q: "নবীজি কত সালে জন্মগ্রহণ করেন?", a: "৫৭০ খ্রিস্টাব্দে", b: "৫৮০ খ্রিস্টাব্দে", c: "৬১০ খ্রিস্টাব্দে",
+
+                    d: "৫১০ খ্রিস্টাব্দে", ans: "a" },
+
+                { q: "আসমানী কিতাব মোট কয়টি?", a: "১০৪টি", b: "৪টি", c: "১০০টি", d: "১০টি", ans: "a" },
+
+                { q: "প্রথম খলিফার নাম কী?", a: "হযরত আবু বকর (রা.)", b: "হযরত উমর(রা.)", c: "হযরত উসমান(রা.)",
+
+                    d: "হযরত আলী(রা.)", ans: "a" },
+
+                { q: "যাকাত কত বছর পর পর দিতে হয়?", a: "১ বছর", b: "৬ মাস", c: "২ বছর", d: "৫ বছর", ans: "a" },
+
+                { q: "জান্নাতী যুবকদের সর্দার কে?", a: "হাসান ও হুসাইন (রা.)", b: "বিলাল (রা.)", c: "যায়েদ (রা.)",
+
+                    d: "খালিদ (রা.)", ans: "a" },
+
+                { q: "জাহান্নামের দরজা কয়টি?", a: "৭টি", b: "৮টি", c: "৯টি", d: "১০টি", ans: "a" },
+
+                { q: "হজ ইসলামের কততম রুকন?", a: "৫ম", b: "৩য়", c: "৪র্থ", d: "২য়", ans: "a" },
+
+                { q: "বদর যুদ্ধ কত হিজরিতে হয়?", a: "২য়", b: "১ম", c: "৩য়", d: "৪র্থ", ans: "a" },
+
+                { q: "কুরআন শরীফের সবচেয়ে ছোট সূরা কোনটি?", a: "সূরা কাউসার", b: "সূরা ইখলাস", c: "সূরা ফালাক",
+
+                    d: "সূরা নাস", ans: "a" },
+
+                { q: "মাক্কী সূরা কতটি?", a: "৮৬টি", b: "২৮টি", c: "৮২টি", d: "৩০টি", ans: "a" },
+
+                { q: "মাদানী সূরা কতটি?", a: "২৮টি", b: "৮৬টি", c: "২০টি", d: "২৪টি", ans: "a" },
+
+                { q: "কুরআনের কোন সূরাকে উম্মুল কুরআন বলা হয়?", a: "সূরা ফাতিহা", b: "সূরা বাকারা", c: "সূরা ইয়াসিন",
+
+                    d: "সূরা ইখলাস", ans: "a" },
+
+                { q: "কোন সূরাটি বিসমিল্লাহ ছাড়া শুরু হয়েছে?", a: "সূরা তাওবা", b: "সূরা নামল", c: "সূরা নিসা",
+
+                    d: "সূরা হুদ", ans: "a" },
+
+                { q: "কোন সূরায় দুইবার বিসমিল্লাহ আছে?", a: "সূরা নামল", b: "সূরা তাওবা", c: "সূরা রহমান",
+
+                    d: "সূরা ইয়াসিন", ans: "a" },
+
+                { q: "নবীজির দুধমাতার নাম কী ছিল?", a: "হযরত হালিমা", b: "হযরত আমেনা", c: "হযরত সোয়াইবা",
+
+                    d: "হযরত ফাতিমা", ans: "a" },
+
+                { q: "নবীজি (দ.) কত বছর বয়সে নবুওয়াত লাভ করেন?", a: "৪০ বছর", b: "২৫ বছর", c: "৩৫ বছর", d: "৬৩ বছর",
+
+                    ans: "a" },
+
+                { q: "নবীজি মক্কা থেকে কোথায় হিজরত করেছিলেন?", a: "মদিনায়", b: "তায়েফে", c: "হাবশায়", d: "সিরিয়ায়",
+
+                    ans: "a" },
+
+                { q: "মিরাজ কোন রাতে হয়েছিল?", a: "২৭শে রজব", b: "১৫ই শাবান", c: "কদরের রাতে", d: "ঈদের রাতে",
+
+                ans: "a" },
+
+                { q: "ইসলামের দ্বিতীয় খলিফা কে ছিলেন?", a: "হযরত উমর (রা.)", b: "হযরত উসমান (রা.)", c: "হযরত আলী (রা.)",
+
+                    d: "হযরত আবু বকর", ans: "a" },
+
+                { q: "যুল-নূরাইন কার উপাধি?", a: "হযরত উসমান (রা.)", b: "হযরত আলী (রা.)", c: "হযরত আবু বকর",
+
+                    d: "হযরত উমর", ans: "a" },
+
+                { q: "ইসলামের চতুর্থ খলিফা কে?", a: "হযরত আলী (রা.)", b: "হযরত উসমান (রা.)", c: "হযরত বিলাল",
+
+                    d: "হযরত তালহা", ans: "a" },
+
+                { q: "কাদেরকে জান্নাতের সুসংবাদ দেওয়া হয়েছে একসাথে?", a: "আশারায়ে মুবাশশারা", b: "আনসার", c: "মুহাজির",
+
+                    d: "তাবেয়ী", ans: "a" },
+
+                { q: "সবচেয়ে বড় ফেরেশতার নাম কী?", a: "হযরত জিবরাইল (আ.)", b: "হযরত মিকাইল", c: "হযরত ইসরাফিল",
+
+                    d: "হযরত আজরাইল", ans: "a" },
+
+                { q: "মৃত্যুর ফেরেশতা কাকে বলা হয়?", a: "হযরত আজরাইল (আ.)", b: "হযরত জিবরাইল", c: "হযরত মিকাইল",
+
+                    d: "হযরত ইসরাফিল", ans: "a" },
+
+                { q: "কিয়ামতের দিন শিঙ্গায় ফুঁ দেবেন কে?", a: "হযরত ইসরাফিল (আ.)", b: "হযরত আজরাইল",
+
+                    c: "হযরত জিবরাইল", d: "হযরত মিকাইল", ans: "a" },
+
+                { q: "কবরের সওয়াল-জওয়াব করেন কোন ফেরেশতারা?", a: "মুনকার ও নাকির", b: "রাকিব ও আতিদ", c: "হারুত ও মারুত",
+
+                    d: "জিবরাইল", ans: "a" },
+
+                { q: "প্রধান আসমানী কিতাব কয়টি?", a: "৪টি", b: "১০০টি", c: "১০টি", d: "৫টি", ans: "a" },
+
+                { q: "আল-কুরআন কোন নবীর ওপর নাযিল হয়?", a: "হযরত মুহাম্মদ (দ.)", b: "হযরত মুসা", c: "হযরত ঈসা",
+
+                    d: "হযরত দাউদ", ans: "a" }
+
+            ],
+
+            3: [
+
+                { q: "দ্বিতীয় খলিফার নাম কী?", a: "হযরত উমর (রা.)", b: "হযরত আলী (রা.)", c: "হযরত উসমান (রা.)",
+
+                    d: "হযরত বিলাল (রা.)", ans: "a" },
+
+                { q: "কোন নবীকে আগুনে ফেলা হয়েছিল?", a: "হযরত ইব্রাহিম (আ.)", b: "হযরত মুসা (আ.)",
+
+                    c: "হযরত নুহ (আ.)", d: "হযরত লুত (আ.)", ans: "a" },
+
+                { q: "কুরআনের হৃদয় কোন সূরা?", a: "সূরা ইয়াসিন", b: "সূরা রহমান", c: "সূরা ফাতিহা", d: "সূরা বাকারা",
+
+                    ans: "a" },
+
+                { q: "শহীদে কারবালা কে?", a: "হযরত হুসাইন (রা.)", b: "হযরত হাসান (রা.)", c: "হযরত আলী (রা.)",
+
+                    d: "হযরত কাসেম (রা.)", ans: "a" },
+
+                { q: "জান্নাতের দরজা কয়টি?", a: "৮টি", b: "৪টি", c: "৭টি", d: "১০টি", ans: "a" },
+
+                { q: "Asadullah কার উপাধি?", a: "হযরত আলী (রা.)", b: "হযরত উমর (রা.)", c: "হযরত হামজা (রা.)",
+
+                    d: "হযরত খালিদ (রা.)", ans: "a" },
+
+                { q: "মেরাজ কোন মাসে হয়েছিল?", a: "রজব", b: "রমজান", c: "শাওয়াল", d: "মুহাররম", ans: "a" },
+
+                { q: "আসমানী কিতাব 'তওরাত' কার ওপর নাযিল হয়?", a: "হযরত মুসা (আ.)", b: "হযরত ঈসা (আ.)",
+
+                    c: "হযরত দাউদ (আ.)", d: "হযরত মুহাম্মদ(দ.)", ans: "a" },
+
+                { q: "ফেরাউন কোন নবীর শত্রু ছিল?", a: "হযরত মুসা (আ.)", b: "হযরত নুহ (আ.)", c: "হযরত ঈসা (আ.)",
+
+                    d: "হযরত ইব্রাহিম (আ.)", ans: "a" },
+
+                { q: "বৃষ্টি বর্ষণের দায়িত্ব পালন করেন কোন ফেরেশতা?", a: "হযরত জিবরাইল (আ.)", b: "হযরত আজরাইল (আ.)",
+
+                    c: "হযরত মিকাইল (আ.)", d: "হযরত ইসরাফিল (আ.)", ans: "c" },
+
+                { q: "তাওরাত কিতাব কোন নবীর ওপর নাযিল হয়?", a: "হযরত মুসা (আ.)", b: "হযরত দাউদ", c: "হযরত ঈসা",
+
+                    d: "হযরত মুহাম্মদ(দ.)", ans: "a" },
+
+                { q: "যবুর কিতাব কার ওপর নাযিল হয়?", a: "হযরত দাউদ (আ.)", b: "হযরত মুসা", c: "হযরত ঈসা",
+
+                    d: "হযরত ইব্রাহিম", ans: "a" },
+
+                { q: "ইঞ্জিল কিতাব কার ওপর নাযিল হয়?", a: "হযরত ঈসা (আ.)", b: "হযরত মুসা", c: "হযরত দাউদ",
+
+                    d: "হযরত মুহাম্মদ(দ.)", ans: "a" },
+
+                { q: "ছোট আসমানী কিতাবগুলোকে কী বলা হয়?", a: "সহীফা", b: "হাদীস", c: "সূরা", d: "আয়াত", ans: "a" },
+
+                { q: "মোট কতটি সহীফা নাযিল হয়েছিল?", a: "১০০টি", b: "১০টি", c: "৫০টি", d: "৪টি", ans: "a" },
+
+                { q: "হযরত আদম (আ.) এর ওপর কতটি সহীফা নাযিল হয়?", a: "১০টি", b: "৫০টি", c: "৩০টি", d: "২০টি",
+
+                ans: "a" },
+
+                { q: "প্রথম আসমানী কিতাব কোনটি?", a: "তাওরাত", b: "যবুর", c: "ইঞ্জিল", d: "কুরআন", ans: "a" },
+
+                { q: "সর্বশেষ আসমানী কিতাব কোনটি?", a: "আল-কুরআন", b: "ইঞ্জিল", c: "যবুর", d: "তাওরাত", ans: "a" },
+
+                { q: "ইসলামের প্রথম যুদ্ধের নাম কী?", a: "বদর যুদ্ধ", b: "ওহুদ যুদ্ধ", c: "খন্দক যুদ্ধ",
+
+                    d: "খায়বার যুদ্ধ", ans: "a" },
+
+                { q: "বদর যুদ্ধ কত হিজরি সনে ঘটেছিল?", a: "২ হিজরি", b: "৩ হিজরি", c: "১ হিজরি", d: "৫ হিজরি",
+
+                    ans: "a" },
+
+                { q: "বদর যুদ্ধে মুসলিম সৈন্য সংখ্যা কত ছিল?", a: "৩১৩ জন", b: "১০০০ জন", c: "৭০০ জন", d: "৩০০০ জন",
+
+                    ans: "a" },
+
+                { q: "বদর যুদ্ধে কাফেরদের সৈন্য সংখ্যা কত ছিল?", a: "১০০০ জন", b: "৩১৩ জন", c: "৫০০ জন", d: "৩০০০ জন",
+
+                    ans: "a" },
+
+                { q: "ওহুদ যুদ্ধ কত হিজরিতে হয়েছিল?", a: "৩ হিজরি", b: "২ হিজরি", c: "৪ হিজরি", d: "৫ হিজরি",
+
+                ans: "a" },
+
+                { q: "কোন যুদ্ধে নবীজির দন্ত মোবারক শহীদ হয়েছিল?", a: "ওহুদ যুদ্ধে", b: "বদর যুদ্ধে", c: "খন্দক যুদ্ধে",
+
+                    d: "মক্কা বিজয়ে", ans: "a" },
+
+                { q: "খন্দক শব্দের অর্থ কী?", a: "পরিখা", b: "পাহাড়", c: "মরুভূমি", d: "দুর্গ", ans: "a" },
+
+                { q: "খন্দক যুদ্ধ কত হিজরিতে হয়েছিল?", a: "৫ হিজরি", b: "৩ হিজরি", c: "৭ হিজরি", d: "৮ হিজরি",
+
+                    ans: "a" },
+
+                { q: "হুদায়বিয়ার সন্ধি কত হিজরিতে হয়েছিল?", a: "৬ হিজরি", b: "৫ হিজরি", c: "৮ হিজরি", d: "৭ হিজরি",
+
+                    ans: "a" },
+
+                { q: "মক্কা বিজয় কত হিজরিতে সম্পন্ন হয়?", a: "৮ হিজরি", b: "৬ হিজরি", c: "১০ হিজরি", d: "৯ হিজরি",
+
+                    ans: "a" },
+
+                { q: "নবীজি কত হিজরিতে বিদায় হজ্ব পালন করেন?", a: "১০ হিজরিতে", b: "৯ হিজরিতে", c: "১১ হিজরিতে",
+
+                    d: "৮ হিজরিতে", ans: "a" },
+
+                { q: "নবীজি (দ.) কত হিজরিতে ইন্তেকাল করেন?", a: "১১ হিজরিতে", b: "১০ হিজরিতে", c: "১২ হিজরিতে",
+
+                    d: "৯ হিজরিতে", ans: "a" }
+
+            ],
+
+            4: [
+
+                { q: "উম্মুল কুরআন কোন সূরা?", a: "সূরা ফাতিহা", b: "সূরা ইখলাস", c: "সূরা ইয়াসিন",
+
+                    d: "সূরা বাকারা", ans: "a" },
+
+                { q: "গাউসিয়া কমিটির প্রতিষ্ঠাতা কে?", a: "সৈয়দ আহমদ শাহ (রহ.)", b: "সৈয়দ তৈয়ব শাহ (রহ.)",
+
+                    c: "খাজা আব্দুর রহমান চৌহরভী (রহ.)", d: "ইমাম আহমদ রেজা (রহ.)", ans: "b" },
+
+                { q: "বাবা ছাড়া জন্মেছেন কোন নবী?", a: "হযরত ঈসা (আ.)", b: "হযরত মুসা (আ.)", c: "হযরত দাউদ (আ.)",
+
+                    d: "হযরত নুহ (আ.)", ans: "a" },
+
+                { q: "বিশ্বের বৃহত্তর জশনে জুলুস কোথায় হয়?", a: "চট্টগ্রাম", b: "ঢাকা", c: "মক্কা", d: "মদিনা",
+
+                    ans: "a" },
+
+                { q: "প্রথম আযান কে দেন?", a: "হযরত বিলাল (রা.)", b: "হযরত আবু বকর (রা.)", c: "হযরত আলী (রা.)",
+
+                    d: "হযরত উমর (রা.)", ans: "a" },
+
+                { q: "কুরআন নাযিল হয় কোন রাতে?", a: "লাইলাতুল কদর", b: "শবে বরাত", c: "লাইলাতুল মেরাজ",
+
+                    d: "আরাফাতের রাত", ans: "a" },
+
+                { q: "হজের প্রধান কাজ কী?", a: "আরাফাতে অবস্থান", b: "সাফা-মারওয়া", c: "মিনায় থাকা", d: "পাথর মারা",
+
+                    ans: "a" },
+
+                { q: "হিজরি সাল শুরু করেন কে?", a: "হযরত উমর (রা.)", b: "হযরত আবু বকর (রা.)", c: "হযরত উসমান (রা.)",
+
+                    d: "হযরত আলী (রা.)", ans: "a" },
+
+                { q: "সাইয়্যিদুল মুরসালিন কে?", a: "হযরত মুহাম্মদ (দ.)", b: "হযরত আদম (আ.)", c: "হযরত ইব্রাহিম (আ.)",
+
+                    d: "হযরত নুহ (আ.)", ans: "a" },
+
+                { q: "কিয়ামতে হিসাব নেবেন কে?", a: "আল্লাহ তাআলা", b: "নবীগণ", c: "ফেরেশতারা", d: "ওলীগণ",
+
+                ans: "a" },
+
+                { q: "নবীজির ইন্তেকালের পর প্রথম খলিফা কে হন?", a: "হযরত আবু বকর", b: "হযরত উমর", c: "হযরত উসমান",
+
+                    d: "হযরত আলী", ans: "a" },
+
+                { q: "সিদ্দিক কার উপাধি ছিল?", a: "হযরত আবু বকর", b: "হযরত উমর", c: "হযরত উসমান", d: "হযরত আলী",
+
+                    ans: "a" },
+
+                { q: "ফারুক কার উপাধি?", a: "হযরত উমর (রা.)", b: "হযরত আলী", c: "হযরত আবু বকর", d: "হযরত উসমান",
+
+                    ans: "a" },
+
+                { q: "আসাদুল্লাহ কার উপাধি ছিল?", a: "হযরত আলী (রা.)", b: "হযরত হামজা", c: "হযরত খালিদ",
+
+                    d: "হযরত উমর", ans: "a" },
+
+                { q: "সাইফুল্লাহ (আল্লাহর তরবারি) কার উপাধি?", a: "হযরত খালিদ বিন ওয়ালিদ", b: "হযরত আলী",
+
+                    c: "হযরত হামজা", d: "হযরত সাদ", ans: "a" },
+
+                { q: "সবচেয়ে বেশি হাদীস বর্ণনাকারী সাহাবী কে?", a: "হযরত আবু হুরায়রা (রা.)", b: "হযরত আয়েশা",
+
+                    c: "হযরত ইবনে উমর", d: "হযরত আনাস", ans: "a" },
+
+                { q: "নারীদের মধ্যে প্রথম কে ইসলাম গ্রহণ করেন?", a: "হযরত খাদিজা (রা.)", b: "হযরত আয়েশা",
+
+                    c: "হযরত ফাতিমা", d: "হযরত সুমাইয়া", ans: "a" },
+
+                { q: "পুরুষদের মধ্যে প্রথম কে ইসলাম গ্রহণ করেন?", a: "হযরত আবু বকর (রা.)", b: "হযরত আলী",
+
+                    c: "হযরত উমর", d: "হযরত যায়েদ", ans: "a" },
+
+                { q: "বালকদের মধ্যে প্রথম কে ইসলাম গ্রহণ করেন?", a: "হযরত আলী (রা.)", b: "হযরত যায়েদ",
+
+                    c: "হযরত উসামা", d: "হযরত হাসান", ans: "a" },
+
+                { q: "দাসদের মধ্যে প্রথম কে ইসলাম গ্রহণ করেন?", a: "হযরত যায়েদ বিন হারেসা", b: "হযরত বিলাল",
+
+                    c: "হযরত সালমান", d: "হযরত খাব্বাব", ans: "a" },
+
+                { q: "ইসলামের প্রথম মহিলা শহীদ কে?", a: "হযরত সুমাইয়া (রা.)", b: "হযরত খাদিজা", c: "হযরত ফাতিমা",
+
+                    d: "হযরত উম্মে আম্মারা", ans: "a" },
+
+                { q: "হাদীস শাস্ত্রের সবচেয়ে বিশুদ্ধ কিতাব কোনটি?", a: "বুখারী শরীফ", b: "মুসলিম শরীফ",
+
+                    c: "তিরমিযী শরীফ", d: "আবু দাউদ", ans: "a" },
+
+                { q: "সিহাহ সিত্তা বলতে কয়টি হাদীস কিতাব বুঝায়?", a: "৬টি", b: "৫টি", c: "৭টি", d: "৪টি", ans: "a" },
+
+                { q: "বুখারী শরীফের সংকলক কে?", a: "ইমাম বুখারী (রহ.)", b: "ইমাম মুসলিম", c: "ইমাম মালিক",
+
+                    d: "ইমাম শাফেয়ী", ans: "a" },
+
+                { q: "মিশকাত শরীফ কিসের কিতাব?", a: "হাদীসের", b: "তাফসীরের", c: "ফিকহের", d: "ইতিহাসের",
+
+                ans: "a" },
+
+                { q: "ইসলামী শরীয়তের প্রথম উৎস কোনটি?", a: "আল-কুরআন", b: "আল-হাদীস", c: "ইজমা", d: "কিয়াস",
+
+                    ans: "a" },
+
+                { q: "ইসলামী শরীয়তের দ্বিতীয় উৎস কোনটি?", a: "আল-হাদীস", b: "আল-কুরআন", c: "ইজমা", d: "কিয়াস",
+
+                    ans: "a" },
+
+                { q: "হাদীস প্রধানত কত প্রকার?", a: "৩ প্রকার", b: "২ প্রকার", c: "৪ প্রকার", d: "৫ প্রকার", ans: "a" },
+
+                { q: "রাসূলুল্লাহ (দ.) এর বাণীকে কী বলা হয়?", a: "হাদীস", b: "কুরআন", c: "ফতোয়া", d: "ফিকহ",
+
+                    ans: "a" },
+
+                { q: "হাদীসের মূল কথা বা টেক্সটকে কী বলে?", a: "মতন", b: "সনদ", c: "রাবী", d: "হুকুম", ans: "a" }
+
+            ],
+
+            5: [
+
+                { q: "জমেয়া আহমাদিয়া সুন্নিয়ার প্রতিষ্ঠাতা কে?", a: "সৈয়দ আহমদ শাহ (রহ.)",
+
+                    b: "খাজা আব্দুর রহমান চৌহরভী", c: "ইমাম আহমদ রেজা", d: "সৈয়দ তৈয়ব শাহ", ans: "a" },
+
+                { q: "সবচেয়ে ছোট সূরা কোনটি?", a: "সূরা কাউসার", b: "সূরা ইখলাস", c: "সূরা নাস", d: "সূরা ফালাক",
+
+                    ans: "a" },
+
+                { q: "বদর যুদ্ধে কতজন সাহাবী শহীদ হয়েছেন?", a: "১৪", b: "১২", c: "৮", d: "১৬", ans: "a" },
+
+                { q: "আমলনামা লেখেন কোন ফেরেশতা?", a: "কিরামান কাতিবিন", b: "মুনকার নাকির", c: "জিবরাইল",
+
+                    d: "মিকাইল", ans: "a" },
+
+                { q: "ইসলামের প্রথম যুদ্ধ কোনটি?", a: "বদর", b: "ওহুদ", c: "খন্দক", d: "খায়বার", ans: "a" },
+
+                { q: "নবীজি কোন শহরে হিজরত করেন?", a: "ইয়াসরিব", b: "কুফা", c: "বাগদাদ", d: "দামেস্ক", ans: "a" },
+
+                { q: "হাশরে কার সুপারিশ ছাড়া জান্নাত হবে না?", a: "হযরত মুহাম্মদ (দ.)", b: "পিতা-মাতা",
+
+                    c: "ফেরেশতা", d: "সাহাবীগণ", ans: "a" },
+
+                { q: "মক্কা বিজয় কত হিজরিতে হয়?", a: "৮ হিজরি", b: "৬ হিজরি", c: "১০ হিজরি", d: "৫ হিজরি",
+
+                    ans: "a" },
+
+                { q: "প্রথম মহিলা শহীদ কে?", a: "হযরত সুমাইয়া (রা.)", b: "হযরত খাদিজা (রা.)", c: "হযরত আয়েশা (রা.)",
+
+                    d: "হযরত ফাতিমা (রা.)", ans: "a" },
+
+                { q: "সৈয়দ আহমদ শাহ (রহ.) ওরস শরীফ কখন হয়?", a: "১১ জিলক্বদ", b: "১০ জিলক্বদ", c: "১ জিলহজ",
+
+                    d: "১১ জিলহজ", ans: "a" },
+
+                { q: "হাদীসের বর্ণনাকারী পরম্পরাকে কী বলে?", a: "সনদ", b: "মতন", c: "রাবী", d: "সূচী", ans: "a" },
+
+                { q: "যাকাত ফরজ হওয়ার জন্য সম্পদের পরিমাপকে কী বলে?", a: "নিসাব", b: "উশর", c: "ফিতরা", d: "খুমস",
+
+                    ans: "a" },
+
+                { q: "সোনার ক্ষেত্রে যাকাতের নিসাব কত টোলা/ভরি?", a: "সাড়ে সাত ভরি", b: "সাড়ে বায়ান্ন ভরি",
+
+                    c: "১০ ভরি", d: "৫ ভরি", ans: "a" },
+
+                { q: "রুপার ক্ষেত্রে যাকাতের নিসাব কত ভরি?", a: "সাড়ে বায়ান্ন ভরি", b: "সাড়ে সাত ভরি", c: "৪০ ভরি",
+
+                    d: "৫০ ভরি", ans: "a" },
+
+                { q: "বছরের নির্দিষ্ট সময়ে আদায়কৃত বাধ্যতামূলক দান কোনটি?", a: "যাকাত", b: "সদকা", c: "ফিতরা",
+
+                    d: "মানত", ans: "a" },
+
+                { q: "ঈদুল ফিতরের দিন ঈদের নামাজের আগে কোনটি আদায় করতে হয়?", a: "ফিতরা", b: "যাকাত", c: "কোরবানি",
+
+                    d: "উশর", ans: "a" },
+
+                { q: "যাকাত কাদেরকে দেওয়া যাবে?", a: "দরিদ্র ও অভাবী", b: "ধনী ব্যক্তিদের", c: "পিতা-মাতাকে",
+
+                    d: "অমুসলিমদের", ans: "a" },
+
+                { q: "কৃষিজাত ফসলের যাকাত বা দানকে কী বলা হয়?", a: "উশর", b: "নিসাব", c: "ফিতরা", d: "খুমস",
+
+                    ans: "a" },
+
+                { q: "হজ শব্দের অভিধানিক অর্থ কী?", a: "সংকল্প করা বা ইচ্ছা করা", b: "ভ্রমণ করা", c: "প্রার্থনা করা",
+
+                    d: "ঘোরাঘুরি", ans: "a" },
+
+                { q: "হজ করতে কোন শহরে যেতে হয়?", a: "মক্কা", b: "মদিনা", c: "জেদ্দা", d: "রিয়াদ", ans: "a" },
+
+                { q: "হজের প্রধান তিনটি ফরজের একটি কোনটি?", a: "এহরাম বাধা", b: "সাফা মারওয়া দৌড়ানো",
+
+                    c: "যমযম পানি খাওয়া", d: "মিনায় থাকা", ans: "a" },
+
+                { q: "আরাফাতের ময়দানে অবস্থান করা হজ্বের কী?", a: "ফরজ", b: "ওয়াজিব", c: "সুন্নত", d: "নফল",
+
+                    ans: "a" },
+
+                { q: "হজের ওয়াজিব কয়টি?", a: "৭টি", b: "৩টি", c: "৫টি", d: "৪টি", ans: "a" },
+
+                { q: "সাফা ও মারওয়া পাহাড়ের মাঝে সাতবার দৌড়ানোকে কী বলে?", a: "সাঈ", b: "তাওয়াফ", c: "রমি", d: "দম",
+
+                    ans: "a" },
+
+                { q: "কাবা শরীফ সাতবার প্রদক্ষিণ করাকে কী বলে?", a: "তাওয়াফ", b: "সাঈ", c: "এহরাম", d: "হলক",
+
+                    ans: "a" },
+
+                { q: "কোরবানি ঈদুল আযহার কত তারিখে করতে হয়?", a: "১০ই জিলহজ", b: "১লা জিলহজ", c: "১লা শাওয়াল",
+
+                    d: "১০ই মুহাররম", ans: "a" },
+
+                { q: "কোরবানি কোন নবীর সুন্নত?", a: "হযরত ইব্রাহিম (আ.)", b: "হযরত মুসা", c: "হযরত ঈসা",
+
+                    d: "হযরত নুহ", ans: "a" },
+
+                { q: "হযরত ইব্রাহিম (আ.) আল্লাহর রাহে কাকে কোরবানি করতে নিয়েছিলেন?", a: "হযরত ইসমাইল (আ.)",
+
+                    b: "হযরত ইসহাক", c: "হযরত ইয়াকুব", d: "হযরত ইউসুফ", ans: "a" },
+
+                { q: "ইসলামী ক্যালেন্ডার বা হিজরি সনের প্রথম মাস কোনটি?", a: "মুহাররম", b: "রমজান", c: "সফর",
+
+                    d: "জিলহজ", ans: "a" },
+
+                { q: "আশুরার দিনটি হিজরি সনের কত তারিখে পালিত হয়?", a: "১০ই মুহাররম", b: "১লা মুহাররম",
+
+                    c: "১২ই রবিউল আউয়াল", d: "১৫ই শাবান", ans: "a" }
+
+            ]
+
+        };
+
+
+
+        let currentStep = 1,
+
+            currentIdx = 0,
+
+            score = 0,
+
+            totalTime = 60,
+
+            timer, playerName = "",
+
+            playerMobile = "",
+
+            stepQuestions = [];
+
+        let quizActive = false;
+
+
+
+        let state5050 = false,
+
+            stateTime = false,
+
+            stateAns = false,
+
+            statePoll = false,
+
+            stateGuard = false;
+
+        let isGuardActiveNow = false;
+
+
+
+        // Mystery Box Tracker Variables
+
+        let streakCount = 0;
+
+        let mysteryRewardsGiven = [];
+
+        const mysteryRewards = ["life_restore", "guard", "time", "free_score"];
+
+
+
+        // ===== GOOGLE SHEETS FUNCTIONS =====
+
+        function sendToGoogleSheets(name, mobile, score) {
+
+            return new Promise((resolve, reject) => {
+
+                // Check if data already sent for this mobile
+
+                if (localStorage.getItem("quiz_submitted_" + mobile)) {
+
+                    resolve({ status: "already_submitted" });
+
+                    return;
+
+                }
+
+
+
+                const params = new URLSearchParams();
+
+                params.append("name", name);
+
+                params.append("mobile", mobile);
+
+                params.append("score", score);
+
+
+
+                // Try to send data
+
+                fetch(SCRIPT_URL, {
+
+                        method: "POST",
+
+                        mode: "no-cors",
+
+                        headers: {
+
+                            "Content-Type": "application/x-www-form-urlencoded",
+
+                        },
+
+                        body: params.toString()
+
+                    })
+
+                    .then(() => {
+
+                        localStorage.setItem("quiz_submitted_" + mobile, "true");
+
+                        resolve({ status: "success" });
+
+                    })
+
+                    .catch((error) => {
+
+                        // If failed, store in localStorage for later retry
+
+                        const pendingData = JSON.parse(localStorage.getItem("pending_quiz_data") || "[]");
+
+                        pendingData.push({ name, mobile, score, timestamp: new Date().toISOString() });
+
+                        localStorage.setItem("pending_quiz_data", JSON.stringify(pendingData));
+
+                        reject(error);
+
+                    });
+
+            });
+
+        }
+
+
+
+        // Retry sending pending data
+
+        function retryPendingData() {
+
+            const pendingData = JSON.parse(localStorage.getItem("pending_quiz_data") || "[]");
+
+            if (pendingData.length === 0) return;
+
+
+
+            pendingData.forEach((data, index) => {
+
+                const params = new URLSearchParams();
+
+                params.append("name", data.name);
+
+                params.append("mobile", data.mobile);
+
+                params.append("score", data.score);
+
+
+
+                fetch(SCRIPT_URL, {
+
+                        method: "POST",
+
+                        mode: "no-cors",
+
+                        headers: {
+
+                            "Content-Type": "application/x-www-form-urlencoded",
+
+                        },
+
+                        body: params.toString()
+
+                    })
+
+                    .then(() => {
+
+                        // Remove from pending list
+
+                        pendingData.splice(index, 1);
+
+                        localStorage.setItem("pending_quiz_data", JSON.stringify(pendingData));
+
+                    })
+
+                    .catch(() => {});
+
+            });
+
+        }
+
+        // ==================================
+
+
+
+        function toBN(n) {
+
+            return n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+
+        }
+
+
+
+        function shuffle(array) {
+
+            for (let i = array.length - 1; i > 0; i--) {
+
+                const j = Math.floor(Math.random() * (i + 1));
+
+                [array[i], array[j]] = [array[j], array[i]];
+
+            }
+
+            return array;
+
+        }
+
+
+
+        function verifyAndStart() {
+
+            playerName = document.getElementById("playerName").value.trim();
+
+            playerMobile = document.getElementById("playerMobile").value.trim();
+
+
+
+            if (!playerName) return alert("দয়া করে আপনার সম্পূর্ণ নাম লিখুন!");
+
+            if (!/^\d{11}$/.test(playerMobile)) return alert("দয়া করে একটি সঠিক ১১ ডিজিটের মোবাইল নাম্বার দিন!");
+
+
+
+            initAudio();
+
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+
+
+
+            if (localStorage.getItem("quiz_submitted_" + playerMobile)) {
+
+                return alert("দুঃখিত! এই মোবাইল নাম্বারটি দিয়ে ইতিমধ্যে একবার প্রতিযোগিতায় অংশগ্রহণ করা হয়েছে।");
+
+            }
+
+
+
+            // Try to send any pending data
+
+            retryPendingData();
+
+
+
+            quizActive = true;
+
+            document.getElementById("menuLifelinesSection").style.display = "flex";
+
+            loadStep(1);
+
+        }
+
+
+
+        function loadStep(s) {
+
+            currentStep = s;
+
+            currentIdx = 0;
+
+
+
+            let allQuestionsInStep = [...rawQuestions[s]];
+
+            shuffle(allQuestionsInStep);
+
+            stepQuestions = allQuestionsInStep.slice(0, 10);
+
+
+
+            document.getElementById("startScreen").style.display = "none";
+
+            document.getElementById("quizContent").style.display = "block";
+
+            renderQ();
+
+            if (s === 1) startTimer();
+
+        }
+
+
+
+        function startTimer() {
+
+            const timerBadge = document.getElementById("timerBadge");
+
+            timer = setInterval(() => {
+
+                totalTime--;
+
+                if (totalTime < 0) totalTime = 0;
+
+                document.getElementById("time").innerText = toBN(totalTime);
+
+                if (totalTime <= 10) timerBadge.classList.add("pulse");
+
+                if (totalTime <= 0) {
+
+                    clearInterval(timer);
+
+                    showFinalResult();
+
+                }
+
+            }, 1000);
+
+        }
+
+
+
+        function triggerTimePenalty() {
+
+            totalTime = Math.max(0, totalTime - 5);
+
+            document.getElementById("time").innerText = toBN(totalTime);
+
+            const badge = document.getElementById("timerBadge");
+
+            badge.classList.remove("time-penalty");
+
+            void badge.offsetWidth;
+
+            badge.classList.add("time-penalty");
+
+        }
+
+
+
+        function renderQ() {
+
+            const q = stepQuestions[currentIdx];
+
+            document.getElementById("stepDisplay").innerText = "ধাপ: " + toBN(currentStep);
+
+            document.getElementById("question").innerText = toBN(((currentStep - 1) * 10) + currentIdx + 1) + ". " + q.q;
+
+
+
+            const totalProgress = (((currentStep - 1) * 10) + currentIdx + 1) * 2;
+
+            document.getElementById("progressFill").style.width = totalProgress + "%";
+
+
+
+            const optDiv = document.getElementById("options");
+
+            optDiv.innerHTML = "";
+
+            const keys = ['a', 'b', 'c', 'd'];
+
+
+
+            document.getElementById("signal5050").style.display = "none";
+
+
+
+            keys.forEach(k => {
+
+                const btn = document.createElement("button");
+
+                btn.className = "option-btn";
+
+
+
+                const txtSpan = document.createElement("span");
+
+                txtSpan.innerText = q[k];
+
+                btn.appendChild(txtSpan);
+
+
+
+                const pollSpan = document.createElement("span");
+
+                pollSpan.className = "poll-percentage";
+
+                pollSpan.id = "poll-" + k;
+
+                btn.appendChild(pollSpan);
+
+
+
+                btn.dataset.key = k;
+
+                btn.onclick = () => check(btn, k);
+
+                optDiv.appendChild(btn);
+
+            });
+
+            document.getElementById("nextBtn").style.display = "none";
+
+
+
+            document.getElementById("ll5050").disabled = state5050;
+
+            document.getElementById("llTime").disabled = stateTime;
+
+            document.getElementById("llAns").disabled = stateAns;
+
+            document.getElementById("llPoll").disabled = statePoll;
+
+            document.getElementById("llGuard").disabled = stateGuard;
+
+        }
+
+
+
+        function use5050(event) {
+
+            if (event) event.stopPropagation();
+
+            if (state5050 || !quizActive) return;
+
+            const buttons = Array.from(document.querySelectorAll(".option-btn"));
+
+            if (buttons.length === 0 || buttons[0].classList.contains("disabled")) return;
+
+
+
+            state5050 = true;
+
+            document.getElementById("ll5050").disabled = true;
+
+            document.getElementById("signal5050").style.display = "inline-block";
+
+
+
+            const q = stepQuestions[currentIdx];
+
+            let wrongButtons = buttons.filter(b => b.dataset.key !== q.ans);
+
+            shuffle(wrongButtons);
+
+            wrongButtons.slice(0, 2).forEach(b => b.classList.add("hidden-option"));
+
+            document.getElementById("menuDropdown").classList.remove("show");
+
+        }
+
+
+
+        function useTimeBonus(event) {
+
+            if (event) event.stopPropagation();
+
+            if (stateTime || !quizActive) return;
+
+
+
+            stateTime = true;
+
+            document.getElementById("llTime").disabled = true;
+
+            totalTime += 30;
+
+            document.getElementById("time").innerText = toBN(totalTime);
+
+            document.getElementById("timerBadge").classList.remove("pulse");
+
+            alert("⏱️ আপনার সময় ৩০ সেকেন্ড বাড়িয়ে দেওয়া হয়েছে!");
+
+            document.getElementById("menuDropdown").classList.remove("show");
+
+        }
+
+
+
+        function useShowAns(event) {
+
+            if (event) event.stopPropagation();
+
+            if (stateAns || !quizActive) return;
+
+            const buttons = Array.from(document.querySelectorAll(".option-btn"));
+
+            if (buttons.length === 0 || buttons[0].classList.contains("disabled")) return;
+
+
+
+            stateAns = true;
+
+            document.getElementById("llAns").disabled = true;
+
+
+
+            const q = stepQuestions[currentIdx];
+
+            buttons.forEach(b => {
+
+                b.classList.add("disabled");
+
+                if (b.dataset.key === q.ans) b.classList.add("correct");
+
+            });
+
+
+
+            playSound('correct');
+
+            totalTime += 5;
+
+            document.getElementById("time").innerText = toBN(totalTime);
+
+            score++;
+
+            streakCount++;
+
+            checkMysteryBox();
+
+            document.getElementById("nextBtn").style.display = "block";
+
+            document.getElementById("menuDropdown").classList.remove("show");
+
+        }
+
+
+
+        function useAudiencePoll(event) {
+
+            if (event) event.stopPropagation();
+
+            if (statePoll || !quizActive) return;
+
+            const buttons = Array.from(document.querySelectorAll(".option-btn"));
+
+            if (buttons.length === 0 || buttons[0].classList.contains("disabled")) return;
+
+
+
+            statePoll = true;
+
+            document.getElementById("llPoll").disabled = true;
+
+
+
+            const q = stepQuestions[currentIdx];
+
+            const keys = ['a', 'b', 'c', 'd'];
+
+            let correctVote = Math.floor(Math.random() * (75 - 55 + 1)) + 55;
+
+            let remaining = 100 - correctVote;
+
+
+
+            keys.forEach(k => {
+
+                const pollEl = document.getElementById("poll-" + k);
+
+                if (pollEl) {
+
+                    pollEl.style.display = "inline-block";
+
+                    if (k === q.ans) {
+
+                        pollEl.innerText = toBN(correctVote) + "%";
+
+                    } else {
+
+                        let vote = Math.floor(Math.random() * remaining);
+
+                        remaining -= vote;
+
+                        if (k === keys[keys.length - 1] || remaining < 0) { vote += remaining;
+
+                            remaining = 0; }
+
+                        pollEl.innerText = toBN(vote) + "%";
+
+                    }
+
+                }
+
+            });
+
+            document.getElementById("menuDropdown").classList.remove("show");
+
+        }
+
+
+
+        function useLifeGuard(event) {
+
+            if (event) event.stopPropagation();
+
+            if (stateGuard || !quizActive) return;
+
+
+
+            stateGuard = true;
+
+            isGuardActiveNow = true;
+
+            document.getElementById("llGuard").disabled = true;
+
+            document.getElementById("signalGuard").style.display = "inline-block";
+
+            alert("🛡️ লাইফ গার্ড সক্রিয় হয়েছে! এই প্রশ্নে ভুল উত্তর দিলেও আপনি রক্ষা পাবেন।");
+
+            document.getElementById("menuDropdown").classList.remove("show");
+
+        }
+
+
+
+        function checkMysteryBox() {
+
+            if (streakCount !== 10) return;
+
+            streakCount = 0;
+
+
+
+            clearInterval(timer);
+
+
+
+            setTimeout(() => {
+
+                const overlay = document.createElement("div");
+
+                overlay.className = "mystery-overlay";
+
+                overlay.id = "mysteryOverlay";
+
+
+
+                overlay.innerHTML = `
+
+                            <div class="mystery-box-card">
+
+                                <h2 style="margin-bottom: 15px; font-size: 22px; color: #18661F;">🎁 লাকি মিফটি বক্স! 🎁</h2>
+
+                                <p style="font-weight: bold; margin-bottom: 25px; font-size:14px;">আপনি সফলভাবে টানা ১০টি সঠিক উত্তর পূর্ণ করেছেন! বক্সে ক্লিক করে আপনার লটারি রিওয়ার্ড বুঝে নিন।</p>
+
+                                <div class="mystery-gift-icon" onclick="openMysteryBox(this)">📦</div>
+
+                            </div>
+
+                        `;
+
+                document.body.appendChild(overlay);
+
+            }, 400);
+
+        }
+
+
+
+        function openMysteryBox(element) {
+
+            element.style.pointerEvents = "none";
+
+            element.innerText = "🎁";
+
+
+
+            const reward = mysteryRewards[Math.floor(Math.random() * mysteryRewards.length)];
+
+            let msg = "";
+
+
+
+            if (reward === "life_restore") {
+
+                const lifelines = ["ll5050", "llTime", "llAns", "llPoll", "llGuard"];
+
+                const used = lifelines.filter(id => document.getElementById(id).disabled);
+
+                if (used.length) {
+
+                    const restore = used[Math.floor(Math.random() * used.length)];
+
+                    document.getElementById(restore).disabled = false;
+
+                    if (restore === "ll5050") state5050 = false;
+
+                    if (restore === "llTime") stateTime = false;
+
+                    if (restore === "llAns") stateAns = false;
+
+                    if (restore === "llPoll") statePoll = false;
+
+                    if (restore === "llGuard") stateGuard = false;
+
+                    msg = "🎁 বোনাস লাইফলাইন! আপনার নষ্ট হয়ে যাওয়া ১টি লাইফলাইন আবার ফিরিয়ে দেওয়া হয়েছে!";
+
+                } else {
+
+                    totalTime += 20;
+
+                    document.getElementById("time").innerText = toBN(totalTime);
+
+                    msg = "⏱️ আপনার সব লাইফলাইন সক্রিয় ছিল, তাই বোনাস হিসেবে +২০ সেকেন্ড দেওয়া হলো!";
+
+                }
+
+            } else if (reward === "guard") {
+
+                isGuardActiveNow = true;
+
+                document.getElementById("signalGuard").style.display = "inline-block";
+
+                msg = "🛡️ অটো লাইফ গার্ড! পরবর্তী ভুল উত্তরের নেগেটিভ মার্কিং ও বাতিল হওয়া থেকে রক্ষা পাবেন!";
+
+            } else if (reward === "time") {
+
+                totalTime += 20;
+
+                document.getElementById("time").innerText = toBN(totalTime);
+
+                msg = "⏱️ টাইম বুস্টার! সরাসরি আপনার অ্যাকাউন্টে +২০ সেকেন্ড বোনাস টাইম যোগ হয়েছে!";
+
+            } else if (reward === "free_score") {
+
+                score++;
+
+                msg = "🎯 ফ্রি স্কোর! কোনো কষ্ট ছাড়াই ১টি ফ্রি বোনাস পয়েন্ট যোগ হয়েছে!";
+
+            }
+
+
+
+            confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+
+
+
+            element.parentElement.innerHTML = `
+
+                        <h2 style="color: #18661F; margin-bottom: 15px;">🎉 অভিনন্দন! 🎉</h2>
+
+                        <div style="font-size: 60px; margin-bottom: 15px;">🎁</div>
+
+                        <p style="font-weight: bold; font-size: 15px; line-height: 1.5; color: #222;">${msg}</p>
+
+                        <button class="btn-main" style="margin-top: 25px; background: var(--primary);" onclick="closeMysteryBox()">কুইজ চালিয়ে যান ➜</button>
+
+                    `;
+
+        }
+
+
+
+        function closeMysteryBox() {
+
+            const overlay = document.getElementById("mysteryOverlay");
+
+            if (overlay) overlay.remove();
+
+
+
+            startTimer();
+
+            handleNext();
+
+        }
+
+
+
+        function grandChampionCelebration() {
+
+            const trophy = document.createElement("div");
+
+            trophy.style.cssText =
+
+                "position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:99999; display:flex; flex-direction:column; justify-content:center; align-items:center; color:white; text-align:center;";
+
+
+
+            trophy.innerHTML = `
+
+                        <div style="font-size:140px; animation: bounce 1s infinite alternate;">🏆</div>
+
+                        <h1 style="color: #ffe259; font-size: 36px; font-weight: bold; margin-top: 20px; letter-spacing: 2px;">GRAND CHAMPION</h1>
+
+                        <h2 style="font-size: 28px; margin-top: 10px; color: #fff;">পূর্ণাঙ্গ ৫০ / ৫০ স্কোর!</h2>
+
+                        <p style="font-size: 16px; color: #ccc; margin-top: 15px; max-width: 80%; line-height: 1.4;">অসাধারণ মেধার পরিচয় দিয়ে আপনি সবকটি প্রশ্নের সঠিক উত্তর দিয়েছেন।</p>
+
+                    `;
+
+            document.body.appendChild(trophy);
+
+
+
+            let duration = 10 * 1000;
+
+            let animationEnd = Date.now() + duration;
+
+
+
+            let interval = setInterval(function() {
+
+                let timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) return clearInterval(interval);
+
+                confetti({ particleCount: 80, spread: 100, origin: { x: Math.random(), y: Math.random() - 0.2 } });
+
+            }, 400);
+
+
+
+            setTimeout(() => {
+
+                trophy.remove();
+
+            }, 10000);
+
+        }
+
+
+
+        function check(btn, choiceKey) {
+
+            const q = stepQuestions[currentIdx];
+
+            const all = document.querySelectorAll(".option-btn");
+
+
+
+            if (choiceKey === q.ans) {
+
+                all.forEach(b => b.classList.add("disabled"));
+
+                btn.classList.add("correct");
+
+                playSound('correct');
+
+                totalTime += 5;
+
+                document.getElementById("time").innerText = toBN(totalTime);
+
+                score++;
+
+                streakCount++;
+
+
+
+                if (streakCount === 10) {
+
+                    checkMysteryBox();
+
+                } else {
+
+                    document.getElementById("nextBtn").style.display = "block";
+
+                }
+
+            } else {
+
+                streakCount = 0;
+
+                if (isGuardActiveNow) {
+
+                    isGuardActiveNow = false;
+
+                    document.getElementById("signalGuard").style.display = "none";
+
+                    btn.classList.add("wrong");
+
+                    btn.classList.add("disabled");
+
+                    playSound('wrong');
+
+                    triggerTimePenalty();
+
+                    alert("🛡️ লাইফ গার্ড আপনাকে বাঁচিয়ে দিয়েছে! তবে ভুল উত্তরের জন্য ৫ সেকেন্ড কাটা গেল এবং মিস্ট্রি বক্সের স্ট্রিক রিসেট হলো।");
+
+                } else {
+
+                    all.forEach(b => b.classList.add("disabled"));
+
+                    btn.classList.add("wrong");
+
+                    playSound('wrong');
+
+                    triggerTimePenalty();
+
+                    all.forEach(b => { if (b.dataset.key === q.ans) b.classList.add("correct"); });
+
+                    document.getElementById("nextBtn").style.display = "block";
+
+                }
+
+            }
+
+        }
+
+
+
+        function handleNext() {
+
+            currentIdx++;
+
+            if (currentIdx < 10) { renderQ(); } else if (currentStep < 5) { loadStep(currentStep + 1); } else {
+
+                showFinalResult();
+
+            }
+
+        }
+
+
+
+        function showFinalResult() {
+
+            clearInterval(timer);
+
+            quizActive = false;
+
+            document.getElementById("menuLifelinesSection").style.display = "none";
+
+            document.getElementById("quizContent").style.display = "none";
+
+            document.getElementById("resultScreen").style.display = "block";
+
+            document.getElementById("displayPlayerName").innerText = playerName;
+
+            document.getElementById("finalScore").innerText = toBN(score);
+
+
+
+            if (score === 50) {
+
+                grandChampionCelebration();
+
+            } else if (score >= 40) {
+
+                var duration = 4 * 1000,
+
+                    animationEnd = Date.now() + duration,
+
+                    defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+
+
+                function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+                var interval = setInterval(function() {
+
+                    var timeLeft = animationEnd - Date.now();
+
+                    if (timeLeft <= 0) return clearInterval(interval);
+
+                    var particleCount = 50 * (timeLeft / duration);
+
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3),
+
+                            y: Math.random() - 0.2 } }));
+
+                    confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9),
+
+                            y: Math.random() - 0.2 } }));
+
+                }, 250);
+
+            }
+
+
+
+            // Send to Google Sheets
+
+            sendToGoogleSheets(playerName, playerMobile, score)
+
+                .then(() => {
+
+                    const msgElement = document.getElementById("saveMsg");
+
+                    msgElement.style.color = "#2ecc71";
+
+                    msgElement.innerText = "ফলাফল নিরাপদে Google Sheet-এ সংরক্ষিত করা হয়েছে! ✅";
+
+                })
+
+                .catch(() => {
+
+                    const msgElement = document.getElementById("saveMsg");
+
+                    msgElement.style.color = "#f39c12";
+
+                    msgElement.innerText =
+
+                        "ফলাফল লোকাল মেমরিতে সংরক্ষিত আছে। ইন্টারনেট কানেকশন হলে স্বয়ংক্রিয়ভাবে Google Sheet-এ যুক্ত হবে। ⏳";
+
+                });
+
+        }
+
+
+
+        function shareResult() {
+
+            const shareText =
+
+                `আমি গাউসিয়া কমিটি বাংলাদেশ আয়োজিত ইসলামিক কুইজে ৫০-এ ${toBN(score)} পেয়েছি! ১ নাম্বারে ১ বারই দেওয়া যায়। আপনার মেধা যাচাই করুন: \n\n${window.location.href}`;
+
+            if (navigator.share) navigator.share({ title: 'ইসলামিক কুইজ', text: shareText, url: window.location.href });
+
+            else window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+
+        }
+
+
+
+        function toggleTheme(event) {
+
+            event.stopPropagation();
+
+            const body = document.body;
+
+            body.classList.toggle("dark-mode");
+
+            document.getElementById("themeBtn").innerText = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+
+        }
+
+
+
+        window.onload = () => {
+
+            setTimeout(() => {
+
+                const splash = document.getElementById('splashScreen');
+
+                splash.style.opacity = '0';
+
+                setTimeout(() => { splash.style.display = 'none'; }, 600);
+
+            }, 1500);
+
+
+
+            // Check for pending data on load
+
+            retryPendingData();
+
+        };
+
+    </script>
+
+</body>
+
+</html>
