@@ -44,3 +44,6 @@ Upload the **contents** of this folder to the root of your GitHub repository (no
 
 ## Quiz preservation
 The quiz remains a separate `quiz.html` page. `quiz-source-original.md` preserves the exact uploaded source file. The runnable HTML was created by removing Markdown-escaping characters from the pasted source; no quiz features or business logic were intentionally changed. Keep the original backup.
+
+## কুইজ অ্যাপ
+বর্তমান `quiz.html` এবং `quiz-source-original.md`-এ সর্বশেষ দেওয়া কুইজ কোড বসানো হয়েছে। মূল ওয়েবসাইটের হোমপেজ `index.html` অপরিবর্তিত রাখা হয়েছে।
